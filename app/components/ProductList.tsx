@@ -5,7 +5,7 @@ import React from "react";
 const ProductList = () => {
   const products = ["", "", "", "", "", ""];
   return (
-    <div className="px-4 md:px-12 py-10 flex justify-center items-center">
+    <div className="px-4 md:px-12 py-10 flex justify-center items-center" id="product">
         <div className="grid grid-cols-4 gap-5">
       {products.map((product, index) => (
         <Link href="/product/123" key={index}>
