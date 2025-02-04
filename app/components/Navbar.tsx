@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="px-4 md:px-12 py-4 md:py-6 bg-white text-black">
+    <nav className="px-4 md:px-12 py-4 md:py-6 bg-white text-black">
       <div className="flex justify-between items-center">
         <label className="text-lg font-semibold">Zwatches</label>
         <div className="hidden md:inline-block relative w-[300px] ">
@@ -33,7 +33,7 @@ const Navbar = () => {
         </div>
         <button className="bg-[#212529] hover:bg-[#343A40] text-white px-3 py-2 rounded-md">Add Product</button>
       </div>
-    </div>
+    </nav>
   );
 };
 
