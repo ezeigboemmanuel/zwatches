@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="px-4 md:px-12 py-4 md:py-6 bg-[#fff] text-black">
+    <div className="px-4 md:px-12 py-4 md:py-6 bg-white text-black">
       <div className="flex justify-between items-center">
         <label className="text-lg font-semibold">Zwatches</label>
         <div className="hidden md:inline-block relative w-[300px] ">
