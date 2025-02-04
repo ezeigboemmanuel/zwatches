@@ -2,13 +2,13 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="px-4 md:px-12 py-4 md:py-6">
+    <div className="px-4 md:px-12 py-4 md:py-6 bg-[#212529] text-white">
       <div className="flex justify-between items-center">
-        <label className="text-lg font-semibold text-[#04A332]">Zwatches</label>
+        <label className="text-lg font-semibold">Zwatches</label>
         <div className="hidden md:inline-block relative w-[300px] ">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-[#04A332]/[0.7]"
+              className="w-4 h-4 text-white/[0.7]"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -25,13 +25,13 @@ const Navbar = () => {
           </div>
 
           <input
-            className="h-[36px] relative pl-10 border-[1px] border-[#04A332]/[0.7] text-sm rounded-[8px] w-full py-2 px-3 focus:outline-none focus:shadow-outline bg-transparent"
+            className="h-[36px] relative pl-10 border-[1px] border-white/[0.7] text-sm rounded-[8px] w-full py-2 px-3 focus:outline-none focus:shadow-outline bg-transparent"
             id="links"
             type="text"
             placeholder="Search"
           />
         </div>
-        <button className="bg-[#04A332] text-white px-3 py-2 rounded-md">Add Product</button>
+        <button className="bg-[#495057] hover:bg-[#343A40] text-white px-3 py-2 rounded-md">Add Product</button>
       </div>
     </div>
   );
