@@ -8,7 +8,7 @@ const Navbar = () => {
         <Link href="/" className="hidden md:inline-block text-lg font-semibold">
           Zwatches
         </Link>
-        <div className=" relative max-w-[300px] ">
+        <div className=" relative max-w-[300px] md:w-[400px]">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
               className="w-4 h-4 text-black/[0.7]"
