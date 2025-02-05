@@ -1,6 +1,6 @@
 "use client";
 
-import ProductList from "@/app/components/ProductList";
+import ProductList from "@/components/ProductList";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
