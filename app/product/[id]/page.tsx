@@ -15,13 +15,13 @@ const ProductPage = () => {
         &larr; Back
       </p>
 
-      <div className="max-w-5xl mx-auto flex justify-between space-x-10">
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center md:space-x-10">
         <Image
           src="/watch-img.jpg"
           alt="img"
           width={1000}
           height={1000}
-          className="max-w-xl max-h-[35rem] object-cover object-center basis-1/2"
+          className="max-w-full md:max-w-xl max-h-[28rem] object-cover object-center basis-1/2"
         />
 
         <div className="basis-1/2 py-8">
