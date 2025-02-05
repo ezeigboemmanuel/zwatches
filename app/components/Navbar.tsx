@@ -34,9 +34,11 @@ const Navbar = () => {
             placeholder="Search"
           />
         </div>
-        <button className="bg-[#212529] hover:bg-[#343A40] text-white px-3 py-2 rounded-md">
-          Add Product
-        </button>
+        <Link href="/add-product">
+          <button className="bg-[#212529] hover:bg-[#343A40] text-white px-3 py-2 rounded-md">
+            Add Product
+          </button>
+        </Link>
       </div>
     </nav>
   );
