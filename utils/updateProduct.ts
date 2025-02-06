@@ -12,6 +12,8 @@ export async function updateProduct(formData: FormData, id: string) {
     const link = formData.get("link");
     const description = formData.get("description");
 
+    console.log("Image: ", image)
+
     if (!name || !price || !link || !description) {
       return {
         error: "Only the image is not required.",
@@ -28,7 +30,7 @@ export async function updateProduct(formData: FormData, id: string) {
       };
     }
 
-    if (!image) {
+    if (image.size === 0) {
       // Update without image
       await Product.findByIdAndUpdate(id, {
         name,
@@ -41,6 +43,14 @@ export async function updateProduct(formData: FormData, id: string) {
         success: "Product updated successfully",
       };
     } else {
+      // delete the previous one firt
+      const parts = product.image.split("/");
+      const fileName = parts[parts.length - 1]; // Extract the last part: "ihwklaco9wt2d0kqdqrs.png"
+      const imageId = fileName.split(".")[0];
+      cloudinary.uploader
+        .destroy(`zwatches/${imageId}`)
+        .then((result) => console.log("result: ", result));
+
       // Image processes
       const arrayBuffer = await image.arrayBuffer();
       const buffer = new Uint8Array(arrayBuffer);

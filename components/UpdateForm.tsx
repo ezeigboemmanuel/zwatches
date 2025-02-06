@@ -1,15 +1,39 @@
 "use client";
 
 import { updateProduct } from "@/utils/updateProduct";
+import axios from "axios";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+
+interface Product {
+  image: string;
+  _id: string;
+  name: string;
+  price: number;
+  link: string;
+  description: string;
+}
 
 const UpdateForm = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string | StaticImport>("");
   const router = useRouter();
+  const [product, setProduct] = useState<Product>();
+
+  useEffect(() => {
+    axios
+      .get(`/api/product/${id}`)
+      .then((response) => setProduct(response.data.product))
+  }, []);
+
+  useEffect(() => {
+    if(product){
+      setImageUrl(product.image)
+    }
+  }, [product])
+
   async function clientUpdateProduct(formData: FormData) {
     const result = await updateProduct(formData, id);
     if (result.error) {
@@ -35,6 +59,10 @@ const UpdateForm = ({ id }: { id: string }) => {
       }
     }
   };
+
+  if(!product){
+    return <p>Loading...</p>
+  }
 
   return (
     <form
@@ -66,6 +94,7 @@ const UpdateForm = ({ id }: { id: string }) => {
         <input
           type="text"
           name="name"
+          defaultValue={product?.name}
           placeholder="Enter the product name"
           className="w-full px-3 py-1.5 md:py-2 text-[#252422] rounded-lg bg-white border border-gray-500"
         />
@@ -75,6 +104,7 @@ const UpdateForm = ({ id }: { id: string }) => {
         <input
           type="number"
           name="price"
+          defaultValue={product?.price}
           placeholder="Enter the product price"
           className="w-full px-3 py-1.5 md:py-2 text-[#252422] rounded-lg bg-white border border-gray-500"
         />
@@ -84,6 +114,7 @@ const UpdateForm = ({ id }: { id: string }) => {
         <input
           type="text"
           name="link"
+          defaultValue={product?.link}
           placeholder="Link to where buyers can find you"
           className="w-full px-3 py-1.5 md:py-2 text-[#252422] rounded-lg bg-white border border-gray-500"
         />
@@ -93,6 +124,7 @@ const UpdateForm = ({ id }: { id: string }) => {
         <textarea
           rows={4}
           name="description"
+          defaultValue={product?.description}
           placeholder="Enter the product description"
           className="w-full px-3 py-1.5 resize-none md:py-2 text-[#252422] rounded-lg bg-white border border-gray-500"
         />
