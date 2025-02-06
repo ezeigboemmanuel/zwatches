@@ -1,14 +1,36 @@
 "use client";
 
 import ProductList from "@/components/ProductList";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+
+interface Product {
+  image: string;
+  _id: string;
+  name: string;
+  price: number;
+  link: string;
+  description: string;
+}
 
 const ProductPage = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const params = useParams();
+  const [product, setProduct] = useState<Product>();
+
+  useEffect(() => {
+    axios
+      .get(`/api/product/${params.id}`)
+      .then((response) => setProduct(response.data.product));
+  }, []);
+
+  if (!product) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="px-4 md:px-12 bg-[#F8F9FA]">
       <p className="cursor-pointer py-3" onClick={() => router.back()}>
@@ -17,16 +39,16 @@ const ProductPage = () => {
 
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center md:space-x-10">
         <Image
-          src="/watch-img.jpg"
+          src={product.image}
           alt="img"
           width={1000}
           height={1000}
-          className="max-w-full md:max-w-xl max-h-[28rem] object-cover object-center basis-1/2"
+          className="max-w-full md:max-w-xl md:min-w-[30rem] min-h-[28rem] max-h-[28rem] object-cover object-center basis-1/2"
         />
 
         <div className="basis-1/2 py-8">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl">Eterna Royale</h2>
+            <h2 className="text-2xl">{product.name}</h2>
 
             <div className="text-2xl font-bold -mt-2 relative">
               <span
@@ -38,7 +60,7 @@ const ProductPage = () => {
 
               {open && (
                 <div className="absolute bg-white shadow-md pb-2 px-5 text-base font-normal right-0 top-10">
-                  <Link href={`/product/123/update`}>
+                  <Link href={`/product/${product._id}/update`}>
                     <p className="mb-2 pb-2 border-b border-gray-300">Update</p>
                   </Link>
                   <p className="text-red-500 cursor-pointer">Delete</p>
@@ -47,23 +69,16 @@ const ProductPage = () => {
             </div>
           </div>
 
-          <h3 className="text-3xl font-semibold mt-3">$4999</h3>
+          <h3 className="text-3xl font-semibold mt-3">${product.price}</h3>
 
-          <button className="mt-8 bg-[#212529] hover:bg-[#343A40] text-white px-3 py-2 w-full font-semibold">
-            Contact Seller
-          </button>
+          <Link href={product.link} target="_blank">
+            <button className="mt-8 bg-[#212529] hover:bg-[#343A40] text-white px-3 py-2 w-full font-semibold">
+              Contact Seller
+            </button>
+          </Link>
 
           <p className="font-semibold mt-10 text-lg">Description</p>
-          <p className="mt-1">
-            The Eterna Royale is a classic and elegant timepiece designed for
-            those who appreciate style and precision. It features a Swiss
-            automatic movement for reliable timekeeping, a scratch-resistant
-            sapphire crystal, and an 18K gold-plated case that adds a touch of
-            luxury. The hand-stitched leather strap provides comfort, while its
-            100M water resistance ensures durability for everyday wear. Whether
-            for formal events or daily use, the Eterna Royale is a perfect blend
-            of sophistication and performance.
-          </p>
+          <p className="mt-1">{product.description}</p>
         </div>
       </div>
 
