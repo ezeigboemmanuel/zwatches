@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface Product {
   image: string;
@@ -30,6 +31,14 @@ const ProductPage = () => {
 
   if (!product) {
     return <p>Loading...</p>;
+  }
+
+  async function handleDelete() {
+    const response = await axios.delete(`/api/product/${params.id}`);
+
+    toast.success(response.data.message);
+
+    router.push("/");
   }
   return (
     <div className="px-4 md:px-12 bg-[#F8F9FA]">
@@ -63,7 +72,12 @@ const ProductPage = () => {
                   <Link href={`/product/${product._id}/update`}>
                     <p className="mb-2 pb-2 border-b border-gray-300">Update</p>
                   </Link>
-                  <p className="text-red-500 cursor-pointer">Delete</p>
+                  <p
+                    onClick={handleDelete}
+                    className="text-red-500 cursor-pointer"
+                  >
+                    Delete
+                  </p>
                 </div>
               )}
             </div>
