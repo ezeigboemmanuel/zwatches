@@ -34,7 +34,11 @@ const SearchPage = () => {
   }, [searchParams]);
 
   if (!products) {
-    return <p>Loading...</p>;
+    return (
+      <Suspense>
+        <p>Loading...</p>
+      </Suspense>
+    );
   }
   return (
     <Suspense>
